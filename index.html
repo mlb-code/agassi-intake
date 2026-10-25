@@ -451,7 +451,8 @@
       try {
         const res = await fetch(url, { method: 'POST', body: fd, headers: headers || {}, signal: ctl.signal });
         const txt = await res.text(); let json = {}; try { json = JSON.parse(txt); } catch (e) {}
-        if (!res.ok || !json.success) throw new Error((json.message || json.error || txt || '').toString().slice(0, 160) || ('HTTP ' + res.status));
+        const okFlag = json.success === true || json.success === 'true';
+        if (!res.ok || !okFlag) throw new Error((json.message || json.error || txt || '').toString().slice(0, 160) || ('HTTP ' + res.status));
         return json;
       } finally { clearTimeout(t); }
     };
