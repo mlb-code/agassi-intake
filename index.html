@@ -458,10 +458,10 @@
     };
     const w3 = () => { const fd = new FormData(); fd.append('access_key', WEB3FORMS_KEY); fd.append('subject', subject); fd.append('from_name', 'AI Lab Pro — שאלון הכרות'); return fd; };
     const attempts = [
-      // 1. Web3Forms, שדה לכל שאלה
-      () => { const fd = w3(); answers.forEach(a => fd.append(a.name, a.q + ' ← ' + (a.a || '—'))); fd.append('Source', 'mlb-code.github.io/agassi-intake'); return post('https://api.web3forms.com/submit', fd); },
-      // 2. Web3Forms, הכול בשדה הודעה אחד
+      // 1. Web3Forms, הכול בשדה הודעה אחד
       () => { const fd = w3(); fd.append('name', name); fd.append('message', plain); fd.append('Source', 'mlb-code.github.io/agassi-intake (compact)'); return post('https://api.web3forms.com/submit', fd); },
+      // 2. Web3Forms, שדה לכל שאלה
+      () => { const fd = w3(); answers.forEach(a => fd.append(a.name, a.q + ' ← ' + (a.a || '—'))); fd.append('Source', 'mlb-code.github.io/agassi-intake'); return post('https://api.web3forms.com/submit', fd); },
       // 3. ערוץ גיבוי נפרד
       () => { const fd = new FormData(); fd.append('_subject', subject); fd.append('name', name); fd.append('message', plain); fd.append('_template', 'box'); fd.append('_captcha', 'false'); return post('https://formsubmit.co/ajax/laviemb@gmail.com', fd, { 'Accept': 'application/json' }); }
     ];
